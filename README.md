@@ -13,6 +13,8 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 ## Wireframes
 
+![Starting Screen] (/IntroScreen.png "Optional Title")
+
 ## Tech Stack
 
 ## Art
