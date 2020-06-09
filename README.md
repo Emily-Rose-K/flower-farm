@@ -21,6 +21,7 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 
 ## Tech Stack
+HTML5, CSS, JS
 
 ## Art
 
@@ -54,7 +55,7 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 ### Nouns
 All the things that are things in my thing:
 - seeds (mvp)
-  - seeds are not saplings and seeds are not flowers. seeds are an item that the farmer can hold. seeds can be planted in dirt mounds by the farmer.
+  - seeds are not saplings and seeds are not flowers. seeds are an item that the farmer can hold. seeds can be planted in plops of dirt  by the farmer.
   - seed count
     - the farmer starts the game with five seeds.
   - planted seed
@@ -67,8 +68,8 @@ All the things that are things in my thing:
   - watered sapling
       - watered saplings will also have an interval that determines when they grow. when a watered sapling grows, it must be removed from the canvas and replaced with a flower.
   
-- dirt mounds (mvp)
-  - dirt mounds are areas that can be full or empty (boolean). empty dirt mounds can receive a seed from the farmer. full dirt mounds do nothing. useless piece's of 💩.
+- plop of dirt s (mvp)
+  - plop of dirt is an area that can be full or empty (boolean). empty plops of dirt can receive a seed from the farmer. full plops of dirt  do nothing. useless piece's of 💩.
  
 - flowers (mvp)
   - flowers are the final evolution of the seed. flowers will have an interval that determines when they get thirsty (boolean). when a flower gets watered it will be removed from the cancas and replaced with a watered flower.
@@ -76,7 +77,7 @@ All the things that are things in my thing:
   - watered flowers will have an interval that determines when they produce a sparkle.  watered flowers will have an interval that determines when they get thirsty. when a watered flower gets thirsty it will be removed from the canvas and replaced with a flower. when a watered flower produces a sparkle, the sparkle count goes up.
   
 - the farmer (mvp)
-  - the farmer is the player! the farmer will be on top of the background but behind the dirt mounds/flowers/saplings. the farmer. 
+  - the farmer is the player! the farmer will be on top of the background but behind the plop of dirt /flowers/saplings. the farmer. 
   
 - sparkles (mvp)
   - sparkles will have a count that goes up if a watered flower produces a sparkle. the sparkle count will go down (stretch) if anything is purchased from the shop.
@@ -84,10 +85,11 @@ All the things that are things in my thing:
   - the timer will start at 3 minutes and count down when the player starts the game. when the counter reaches 0 all seed, sapling(stretch), and flower intervals will be cleared and the game: mvp, wave: stretch will end.
 
 ### Verbs
+actions that my things can act:
 - move (mvp)
   - the player can use the arrow keys to move the farmer left <- or right ->
 - plant (mvp)
-  - the player can press the  x key while the farmer is in front of a dirt mound to plant a seed. this will remove one seed from the seed count. planting on an already full dirt mound will not remove seeds from the seed count.
+  - the player can press the  x key while the farmer is in front of a plop of dirt to plant a seed. this will remove one seed from the seed count. planting on an already full plop of dirt will not remove seeds from the seed count.
 - water (mvp)
   - the player can press the z key while the farmer is in front of a thirsty seed/sapling/flower to water it. watering an already watered seed/sapling/flower will do nothing.
 - grow (mvp)
@@ -96,6 +98,7 @@ All the things that are things in my thing:
   -  only watered flowers can produce. when produce happens, the sparkle counter goes up depending on the watered flowers production rate. for mvp, the production rate is the same for all flowers.
 
 ### Adjectives
+and how does that make you feel?
 - delightful
   - happy color scheme
   - cute art
