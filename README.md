@@ -3,7 +3,7 @@ Let's grow, grow, grow! You've built a backyard garden with five plots of dirt t
 
 ## About
 ### goal state
-The goal of this game is to grow your flowers and produce sparkles. Flowers need to be watered in order to grow and will only produce sparkles once fully grown. Players only have XX amount of time to grow as many flowers as they can to produce as many sparkles as they can. To start, players are given five seeds to plant in five plops of dirt. They will need to plant their seeds and water their flowers when they are thirsty to get them to grow . Once fully grown, flowers will start to produce a currency of sparkles. 
+The goal of this game is to grow your flowers and produce sparkles. Flowers need to be watered in order to grow and will only produce sparkles once fully grown. Players only have 3 minutes to grow as many flowers as they can to produce as many sparkles as they can. To start, players are given five seeds to plant in five plops of dirt. They will need to plant their seeds and water their flowers when they are thirsty to get them to grow . Once fully grown, flowers will start to produce a currency of sparkles. 
 
 <!-- A player will "lose" the game if they run out of seeds/flowers. This is possible to do only if the player really wants to lose (ie., they choose to cut all their flowers and not to purchase new seeds in the shop.)  -->
 
