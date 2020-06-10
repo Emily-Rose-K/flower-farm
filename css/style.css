@@ -1,0 +1,40 @@
+body {
+    font-family: 'Amatic SC', cursive;
+}
+
+main {
+  grid-column:  2/ span 3;
+}
+
+canvas {
+    background-color: #80C7E0; 
+    width: 85%;
+    height: 100;
+}
+
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-column-gap: 1em;
+    height: 800px;
+}
+
+#top {
+    grid-column: 1/4;
+    border: 1px solid black;
+    text-align: center;
+    height: 60px;
+      
+}
+
+#play {
+    border: 1px solid black;
+    grid-column: 1/4;
+    text-align: center;
+    height: 60px;
+    align-self: end;
+    
+}
+

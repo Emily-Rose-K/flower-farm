@@ -13,14 +13,14 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 ## Wireframes
 
-![Starting Screen] (/IntroScreen.png "Optional Title")
+![Alt text](/IntroScreen.png?raw=true "Optional Title")
 
 ## Tech Stack
 
 ## Art
 
 ## MVP Prototype
-### Garden is set up
+### Render the Garden
 ### 5 Seeds to start
 ### Able to plant a seed
 ### Able to water a seed/flower
@@ -31,7 +31,7 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 
 ## Stretch Goals
-### Add a stage of growth
+### Add a stage of growth for flowers
 ### Add a second wave (reset the game without reseting sparkle count)
 ### Add a shop with one new type of flower
 

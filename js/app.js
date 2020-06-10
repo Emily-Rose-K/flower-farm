@@ -4,5 +4,11 @@
 var ctx = document.getElementById('game').getContext('2d');
 
 
+/*---------- Game Variables ----------*/
+
+
+
+
+
 
 /*---------- Game Logic ----------*/
