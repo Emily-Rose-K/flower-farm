@@ -13,16 +13,13 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 ## Wireframes
 
-<<<<<<< HEAD
-![Alt text](/IntroScreen.png?raw=true "Optional Title")
-=======
+
 ![](/IntroScreen.png?raw=true "Starting Screen")
 
 ![](/GamePlay.png?raw=true "Game Play")
 
 ![](/EndGame.png?raw=true "The Round is Over")
 
->>>>>>> 94d94fdbedaa6214a933cf020e6477902ffc829e
 
 ## Tech Stack
 HTML5, CSS, JS
@@ -47,6 +44,8 @@ HTML5, CSS, JS
 
 
 ## Bugs
+### Tracking plops of dirt
+i am able to track plops of dirt by incrementing or decrementing by one when the player moves, however i can not figure out how to translate that to the acutale dirt plop object. if my case is 1, i know that i am at plop1 and that i can check if plop1 is empty. but the switch statement is outside of my plantSeed() function - so how do i say 'oh once you check that plop1 is empty go ahead and plant a seed there." i have five plops do do this for. i should probably just do an if else statement that checks if plopNumber is x && plopx is empty do the thing. even though it's ugly spaghetti code it will probably work.
 
 ## Gameplay
 
@@ -72,7 +71,7 @@ All the things that are things in my thing:
   - watered sapling
       - watered saplings will also have an interval that determines when they grow. when a watered sapling grows, it must be removed from the canvas and replaced with a flower.
   
-- plop of dirt s (mvp)
+- plop of dirt (mvp)
   - plop of dirt is an area that can be full or empty (boolean). empty plops of dirt can receive a seed from the farmer. full plops of dirt  do nothing. useless piece's of 💩.
  
 - flowers (mvp)
@@ -81,7 +80,7 @@ All the things that are things in my thing:
   - watered flowers will have an interval that determines when they produce a sparkle.  watered flowers will have an interval that determines when they get thirsty. when a watered flower gets thirsty it will be removed from the canvas and replaced with a flower. when a watered flower produces a sparkle, the sparkle count goes up.
   
 - the farmer (mvp)
-  - the farmer is the player! the farmer will be on top of the background but behind the plop of dirt /flowers/saplings. the farmer. 
+  - the farmer is the player! the farmer will be on top of the background but behind the plop of dirt /flowers/saplings. 
   
 - sparkles (mvp)
   - sparkles will have a count that goes up if a watered flower produces a sparkle. the sparkle count will go down (stretch) if anything is purchased from the shop.
