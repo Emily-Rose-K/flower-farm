@@ -9,7 +9,7 @@ let game = document.getElementById("game");
 let plopNumber = 0;
 let seedCount = 5;
 let activePlants = [];
-
+let thirstyBoys = [];
 
 /*---------- Game Logic ----------*/
 
@@ -30,6 +30,8 @@ function Plant(x, y, color, width, height) { // these are all the things that ch
     }
   }
 
+// all the things that are things in my thing
+
 let flower = new Plant(0, 0, "#c58ae3", 20, 50);
 
 let farmer = new Plant(10 ,80, "#1f1be3", 40, 70);
@@ -46,6 +48,21 @@ let plantedSeed2 = new Plant(145, 135, "#659456", 10, 5);
 let plantedSeed3 = new Plant(205, 135, "#659456", 10, 5);
 let plantedSeed4 = new Plant(265, 135, "#659456", 10, 5);
 
+let thirstPlant0 = new Plant(25, 125, "#2bdfff", 10, 5);
+let thirstPlant1 = new Plant(85, 125, "#2bdfff", 10, 5);
+let thirstPlant2 = new Plant(145, 125, "#2bdfff", 10, 5);
+let thirstPlant3 = new Plant(205, 125, "#2bdfff", 10, 5);
+let thirstPlant4 = new Plant(265, 125, "#2bdfff", 10, 5);
+
+let grownFlower0 = new Plant(25, 125, "#2bdfff", 10, 5);
+let grownFlower1 = new Plant(85, 125, "#2bdfff", 10, 5);
+let grownFlower2 = new Plant(145, 125, "#2bdfff", 10, 5);
+let grownFlower3 = new Plant(205, 125, "#2bdfff", 10, 5);
+let grownFlower4 = new Plant(265, 125, "#2bdfff", 10, 5);
+
+
+// render lots of things that are things in my things
+
 const renderPlops = () => {
     plop0.render();
     plop1.render();
@@ -54,16 +71,18 @@ const renderPlops = () => {
     plop4.render();
 }
 
-const renderActivePlants = () => {
-    // for each plant in activePlants array, render it?
-    plantedSeed0.render();
-    plantedSeed1.render();
-    plantedSeed2.render();
-    plantedSeed3.render();
-    plantedSeed4.render();
+const renderActivePlants = (activePlants) => {
+    // for each plant in activePlants array, render it
+    // because i only want to render plants if they were planted
+    activePlants.forEach(element => element.render());
 }
 
-//check the things
+const renderThirstyBoys = (thirstyBoys) => {
+    thirstyBoys.forEach(element => element.render());
+}
+
+//check if plop can receive seed
+
 const checkPlop = () => {
     switch(plopNumber) {
         case 0:
@@ -86,35 +105,98 @@ const checkPlop = () => {
     }
 }
 
+//check if plant needs water
+
+const checkThirst = () => {
+    switch(plopNumber) {
+        case 0:
+            plantedSeed0.thirsty ? true : false
+            return (plantedSeed0.thirsty)
+        case 1:
+            plantedSeed1.thirsty ? true : false
+            return (plantedSeed1.thirsty)
+        case 2:
+            plantedSeed2.thirsty ? true : false
+            return (plantedSeed2.thirsty)
+        case 3:
+            plantedSeed3.thirsty ? true : false
+            return (plantedSeed3.thirsty)
+        case 4:
+            plantedSeed4.thirsty ? true : false
+            return (plantedSeed4.thirsty)
+        default:
+            console.log("👩🏻‍🌾")
+    }
+}
+
 //tend the garden
 
  const doAction = () => {
-    if (checkPlop(false)) {
+    if (checkPlop()) {
         plantSeed(plopNumber);  
+    } else if (checkThirst()){
+        waterPlant(plopNumber);
     } else {
-        waterFlower();
+        console.log("plant is not thirsty")
     }
  }
 
  const plantSeed = (plopNumber) => {
-    console.log("you planted a seed!");
     switch(plopNumber) {
         case 0: plop0.empty = false;
+        activePlants.push(plantedSeed0);
+        setTimeout(function() {
+            thirstQuench(plopNumber)
+        } ,5000)
         break;
         case 1: plop1.empty = false;
+        activePlants.push(plantedSeed1);
+        setTimeout(function() {
+            thirstQuench(plopNumber)
+        } ,5000)
         break;
         case 2: plop2.empty = false;
+        activePlants.push(plantedSeed2);
+        setTimeout(function() {
+            thirstQuench(plopNumber)
+        } ,5000)
         break;
         case 3: plop3.empty = false;
+        activePlants.push(plantedSeed3);
+        setTimeout(function() {
+            thirstQuench(plopNumber)
+        } ,5000)
         break;
         case 4: plop4.empty = false;
+        activePlants.push(plantedSeed4);
+        setTimeout(function() {
+            thirstQuench(plopNumber)
+        } ,5000)
         default:
             console.log("👩🏻‍🌾")
     }
  }
 
-const waterFlower = () => {
-    console.log("you watered the plant!")
+const waterPlant = (plopNumber) => {
+    console.log("you watered a plant", thirstyBoys);
+    switch(plopNumber) {
+        case 0: plantedSeed0.thirsty = false;
+        thirstyBoys.splice(thirstPlant0);
+        break;
+        case 1: plantedSeed1.thirsty = false;
+        thirstyBoys.splice(thirstPlant1);
+        break;
+        case 2: plantedSeed2.thirsty = false;
+        thirstyBoys.splice(thirstPlant2);
+        break;
+        case 3: plantedSeed3.thirsty = false;
+        thirstyBoys.splice(thirstPlant3);
+        break;
+        case 4: plantedSeed4.thirsty = false;
+        thirstyBoys.splice(thirstPlant4);
+        default:
+            console.log("👩🏻‍🌾")
+    }
 }
 
 //run the game
@@ -123,7 +205,8 @@ const gameTick = () => {
     ctx.clearRect(0, 0, game.width, game.height)
     farmer.render();
     renderPlops();
-    renderActivePlants();
+    renderActivePlants(activePlants);
+    renderThirstyBoys(thirstyBoys);
 }
 
 let gameLoop = setInterval(gameTick, 60); //17 millisonds is slightly faster than 60 frames p/s
@@ -134,20 +217,16 @@ const movementHandler = (e) => {
     //go left
   if (e.keyCode == '37') {
       if (farmer.x < 31) {
-          console.log("can't go that way")
       } else {
         farmer.x -= 60;
         plopNumber --;
-        console.log(plopNumber);
       }
       //go right
     } if (e.keyCode == '39') {
-        if (farmer.x > 240){
-            console.log("can't go that way")
+        if (farmer.x > 240){ 
         } else {
             farmer.x += 60;
             plopNumber ++;
-            console.log(plopNumber);
         }
         //space bar
     } else if (e.keyCode == "32"){
@@ -156,4 +235,82 @@ const movementHandler = (e) => {
 }
 
 document.addEventListener("keydown", movementHandler);
+
+// al of my time shenanigans
+
+const thirstQuench = (plopNumber) => {
+    console.log("we are thirsty!",thirstyBoys);
+    switch(plopNumber) {
+        case 0:
+           plantedSeed0.thirsty = true;
+           thirstyBoys.push(thirstPlant0);
+        break;
+        case 1:
+            plantedSeed1.thirsty = true;
+            thirstyBoys.push(thirstPlant1);
+        case 2:
+            plantedSeed2.thirsty = true;
+            thirstyBoys.push(thirstPlant2);
+        break;
+        case 3:
+            plantedSeed3.thirsty = true;
+            thirstyBoys.push(thirstPlant3);
+        break;
+        case 4:
+            plantedSeed4.thirsty = true;
+            thirstyBoys.push(thirstPlant4);
+        default:
+            console.log("👩🏻‍🌾")
+    }
+}
+
+// const growBig = (plopNumber) => {
+//     switch(plopNumber) {
+//         case 0:
+//         // remove planted seed from active plants
+//         activePlants.splice(plantedSeed0)
+//         // add flower to active plants
+//         activePlants.push(grownFlower0)
+//         // start flower timer for producing sparkles
+//         setTimeout(function() {
+//             produceSparkle(plopNumber)
+//         } ,5000)  
+//         break;
+//         case 1:
+//         activePlants.splice(plantedSeed1)
+//         activePlants.push(grownFlower1)
+//         setTimeout(function() {
+//             produceSparkle(plopNumber)
+//         } ,5000)   
+//         case 2:
+//         activePlants.splice(plantedSeed2)
+//         activePlants.push(grownFlower2)
+//         setTimeout(function() {
+//             produceSparkle(plopNumber)
+//         } ,5000) 
+//         break;
+//         case 3:
+//         activePlants.splice(plantedSeed3)
+//         activePlants.push(grownFlower3)
+//         setTimeout(function() {
+//             produceSparkle(plopNumber)
+//         } ,5000)     
+//         break;
+//         case 4:
+//         activePlants.splice(plantedSeed4)
+//         activePlants.push(grownFlower4)
+//         setTimeout(function() {
+//             produceSparkle(plopNumber)
+//         } ,5000) 
+  
+//         default:
+//             console.log("👩🏻‍🌾")
+//     }
+// }
+
+
+// const produceSparkle = (plopNumber) => {
+//     console.log("✨");
+//     /// every second it produces a sparkle
+// }
 
