@@ -13,16 +13,13 @@ A player will "lose" if they fail to produce the required sparkles in the curren
 
 ## Wireframes
 
-<<<<<<< HEAD
-![Alt text](/IntroScreen.png?raw=true "Optional Title")
-=======
+
 ![](/IntroScreen.png?raw=true "Starting Screen")
 
 ![](/GamePlay.png?raw=true "Game Play")
 
 ![](/EndGame.png?raw=true "The Round is Over")
 
->>>>>>> 94d94fdbedaa6214a933cf020e6477902ffc829e
 
 ## Tech Stack
 HTML5, CSS, JS
@@ -47,6 +44,8 @@ HTML5, CSS, JS
 
 
 ## Bugs
+### Tracking plops of dirt
+i am able to track plops of dirt by incrementing or decrementing by one when the player moves, however i can not figure out how to translate that to the acutale dirt plop object. if my case is 1, i know that i am at plop1 and that i can check if plop1 is empty. but the switch statement is outside of my plantSeed() function - so how do i say 'oh once you check that plop1 is empty go ahead and plant a seed there." i have five plops do do this for. i should probably just do an if else statement that checks if plopNumber is x && plopx is empty do the thing. even though it's ugly spaghetti code it will probably work.
 
 ## Gameplay
 
