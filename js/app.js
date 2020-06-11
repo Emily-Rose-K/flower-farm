@@ -100,8 +100,9 @@ const checkPlop = () => {
         case 4:
             plop4.empty ? true : false
             return (plop4.empty)
+        break;
         default:
-            console.log("👩🏻‍🌾")
+            console.log("🌏")
     }
 }
 
@@ -124,8 +125,9 @@ const checkThirst = () => {
         case 4:
             plantedSeed4.thirsty ? true : false
             return (plantedSeed4.thirsty)
+        break;
         default:
-            console.log("👩🏻‍🌾")
+            console.log("🍷")
     }
 }
 
@@ -137,7 +139,7 @@ const checkThirst = () => {
     } else if (checkThirst()){
         waterPlant(plopNumber);
     } else {
-        console.log("plant is not thirsty")
+        console.log("🌱👎🏼🍷")
     }
  }
 
@@ -172,30 +174,46 @@ const checkThirst = () => {
         setTimeout(function() {
             thirstQuench(plopNumber)
         } ,5000)
+        break;
         default:
-            console.log("👩🏻‍🌾")
+            console.log("🌰")
     }
  }
 
 const waterPlant = (plopNumber) => {
-    console.log("you watered a plant", thirstyBoys);
     switch(plopNumber) {
         case 0: plantedSeed0.thirsty = false;
-        thirstyBoys.splice(thirstPlant0);
+        const index0 = thirstyBoys.indexOf(thirstPlant0);
+            if (index0 > -1) {
+            thirstyBoys.splice(index0, 1);
+        }
         break;
         case 1: plantedSeed1.thirsty = false;
-        thirstyBoys.splice(thirstPlant1);
+        const index1 = thirstyBoys.indexOf(thirstPlant1);
+            if (index1 > -1) {
+            thirstyBoys.splice(index1, 1);
+        }
         break;
         case 2: plantedSeed2.thirsty = false;
-        thirstyBoys.splice(thirstPlant2);
+        const index2 = thirstyBoys.indexOf(thirstPlant2);
+            if (index2 > -1) {
+            thirstyBoys.splice(index2, 1);
+        }
         break;
         case 3: plantedSeed3.thirsty = false;
-        thirstyBoys.splice(thirstPlant3);
+        const index3 = thirstyBoys.indexOf(thirstPlant3);
+            if (index3 > -1) {
+            thirstyBoys.splice(index3, 1);
+        }
         break;
         case 4: plantedSeed4.thirsty = false;
-        thirstyBoys.splice(thirstPlant4);
+        const index4 = thirstyBoys.indexOf(thirstPlant4);
+            if (index4 > -1) {
+            thirstyBoys.splice(index4, 1);
+        }
+        break;
         default:
-            console.log("👩🏻‍🌾")
+            console.log("🚰")
     }
 }
 
@@ -239,7 +257,6 @@ document.addEventListener("keydown", movementHandler);
 // al of my time shenanigans
 
 const thirstQuench = (plopNumber) => {
-    console.log("we are thirsty!",thirstyBoys);
     switch(plopNumber) {
         case 0:
            plantedSeed0.thirsty = true;
@@ -248,6 +265,7 @@ const thirstQuench = (plopNumber) => {
         case 1:
             plantedSeed1.thirsty = true;
             thirstyBoys.push(thirstPlant1);
+        break;
         case 2:
             plantedSeed2.thirsty = true;
             thirstyBoys.push(thirstPlant2);
@@ -259,8 +277,9 @@ const thirstQuench = (plopNumber) => {
         case 4:
             plantedSeed4.thirsty = true;
             thirstyBoys.push(thirstPlant4);
+        break;
         default:
-            console.log("👩🏻‍🌾")
+            console.log("🥵")
     }
 }
 
