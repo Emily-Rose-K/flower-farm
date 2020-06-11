@@ -72,7 +72,7 @@ All the things that are things in my thing:
   - watered sapling
       - watered saplings will also have an interval that determines when they grow. when a watered sapling grows, it must be removed from the canvas and replaced with a flower.
   
-- plop of dirt s (mvp)
+- plop of dirt (mvp)
   - plop of dirt is an area that can be full or empty (boolean). empty plops of dirt can receive a seed from the farmer. full plops of dirt  do nothing. useless piece's of 💩.
  
 - flowers (mvp)
@@ -81,7 +81,7 @@ All the things that are things in my thing:
   - watered flowers will have an interval that determines when they produce a sparkle.  watered flowers will have an interval that determines when they get thirsty. when a watered flower gets thirsty it will be removed from the canvas and replaced with a flower. when a watered flower produces a sparkle, the sparkle count goes up.
   
 - the farmer (mvp)
-  - the farmer is the player! the farmer will be on top of the background but behind the plop of dirt /flowers/saplings. the farmer. 
+  - the farmer is the player! the farmer will be on top of the background but behind the plop of dirt /flowers/saplings. 
   
 - sparkles (mvp)
   - sparkles will have a count that goes up if a watered flower produces a sparkle. the sparkle count will go down (stretch) if anything is purchased from the shop.
