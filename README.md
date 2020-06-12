@@ -46,6 +46,10 @@ HTML5, CSS, JS
 ## Bugs
 ### Tracking plops of dirt
 i am able to track plops of dirt by incrementing or decrementing by one when the player moves, however i can not figure out how to translate that to the acutale dirt plop object. if my case is 1, i know that i am at plop1 and that i can check if plop1 is empty. but the switch statement is outside of my plantSeed() function - so how do i say 'oh once you check that plop1 is empty go ahead and plant a seed there." i have five plops do do this for. i should probably just do an if else statement that checks if plopNumber is x && plopx is empty do the thing. even though it's ugly spaghetti code it will probably work.
+solve: all my action functions take a plopNumber as the case so that I know where I am at for each action.
+
+### geting sparkles to appear above a flower.
+full grown flowers do produce sparkles but only one flower will do it per game. and, it will produce multiple sparkles even though i did not intend for that to happen (yet.) i need to figure out why each flower is not producing a sparkle after the timeout ends.
 
 ## Gameplay
 
@@ -98,8 +102,7 @@ actions that my things can act:
 - grow (mvp)
   - growing removes seeds and saplings(stretch) from the canvas and replaces them with saplings(stretch) and flowers respectively. each has an interval that determines when they grow. 
 - produce (mvp)
-  -  only watered flowers can produce. when produce happens, the sparkle counter goes up depending on the watered flowers production rate. for mvp, the production rate is the same for all flowers.
-
+  -  only flowers can produce. when produce happens, the farmer can harvest a sparkle.
 ### Adjectives
 and how does that make you feel?
 - delightful
