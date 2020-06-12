@@ -2,15 +2,19 @@
 
 // get canvas context
 var ctx = document.getElementById('game').getContext('2d');
-let game = document.getElementById("game");
+var game = document.getElementById("game");
+
 
 /*---------- Game Variables ----------*/
 
 let plopNumber = 0;
 let seedCount = 5;
+let time = 60;
 let sparkleCount = 0;
+let activeSparkles =[];
 let activePlants = [];
 let thirstyBoys = [];
+
 
 
 /*---------- Game Logic ----------*/
@@ -63,6 +67,12 @@ let grownFlower3 = new Plant(205, 115, "#912bff", 10, 25);
 let grownFlower4 = new Plant(265, 115, "#912bff", 10, 25);
 
 
+let sparkle0 = new Plant(25, 90, "#ffe817", 10, 10);
+let sparkle1 = new Plant(85, 90, "#ffe817", 10, 10);
+let sparkle2 = new Plant(145, 90, "#ffe817", 10, 10);
+let sparkle3 = new Plant(205, 90, "#ffe817", 10, 10);
+let sparkle4 = new Plant(265, 90, "#ffe817", 10, 10);
+
 // render lots of things that are things in my things
 
 const renderPlops = () => {
@@ -83,6 +93,41 @@ const renderThirstyBoys = (thirstyBoys) => {
     thirstyBoys.forEach(element => element.render());
 }
 
+const renderActiveSparkles = (activeSparkles) => {
+    activeSparkles.forEach(element => element.render());
+}
+
+// game things 
+
+const endGame = () => {
+    clearInterval(interval);
+    clearInterval(gameLoop);
+    ctx.clearRect(0, 0, game.width, game.height)
+    
+}
+
+const gameTick = () => {
+    ctx.clearRect(0, 0, game.width, game.height)
+    farmer.render();
+    renderPlops();
+    renderActivePlants(activePlants);
+    renderThirstyBoys(thirstyBoys);
+    renderActiveSparkles(activeSparkles);
+    document.getElementById("sparkles").textContent = `✨:${sparkleCount}`;
+}
+
+//17 millisonds is slightly faster than 60 frames p/s
+const startGame = () =>{
+    gameLoop = setInterval(gameTick, 17); 
+    interval = setInterval(tick, 1000);
+}
+
+document.getElementById("play").addEventListener("click", function(){
+    startGame();
+    document.getElementById("play").innerText = "Start Playing!"
+  });
+
+
 //check if plop can receive seed
 
 const checkPlop = () => {
@@ -102,13 +147,12 @@ const checkPlop = () => {
         case 4:
             plop4.empty ? true : false
             return (plop4.empty)
-        break;
         default:
             console.log("🌏")
     }
 }
 
-//check if plant needs water
+//check if plant needs water 
 
 const checkThirst = () => {
     switch(plopNumber) {
@@ -127,7 +171,30 @@ const checkThirst = () => {
         case 4:
             plantedSeed4.thirsty ? true : false
             return (plantedSeed4.thirsty)
-        break;
+        default:
+            console.log("🍷")
+    }
+}
+
+// check if flower is producing sparkles
+
+const checkSparkle = () => {
+    switch(plopNumber) {
+        case 0:
+            grownFlower0.produce ? true : false
+            return (grownFlower0.produce)
+        case 1:
+            grownFlower1.produce ? true : false
+            return (grownFlower1.produce)
+        case 2:
+            grownFlower2.produce ? true : false
+            return (grownFlower2.produce)
+        case 3:
+            grownFlower3.produce ? true : false
+            return (grownFlower3.produce)
+        case 4:
+            grownFlower4.produce ? true : false
+            return (grownFlower4.produce)
         default:
             console.log("🍷")
     }
@@ -140,6 +207,8 @@ const checkThirst = () => {
         plantSeed(plopNumber);  
     } else if (checkThirst()){
         waterPlant(plopNumber);
+    } else if (checkSparkle()){
+        harvestSparkle(plopNumber)
     } else {
         console.log("🌱👎🏼🍷")
     }
@@ -152,34 +221,34 @@ const checkThirst = () => {
         activePlants.push(plantedSeed0);
         setTimeout(function() {
             thirstQuench(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 1: 
         plop1.empty = false;
         activePlants.push(plantedSeed1);
         setTimeout(function() {
             thirstQuench(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 2: 
         plop2.empty = false;
         activePlants.push(plantedSeed2);
         setTimeout(function() {
             thirstQuench(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 3: 
         plop3.empty = false;
         activePlants.push(plantedSeed3);
         setTimeout(function() {
             thirstQuench(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 4: plop4.empty = false;
         activePlants.push(plantedSeed4);
         setTimeout(function() {
             thirstQuench(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         default:
             console.log("🌰")
@@ -198,7 +267,7 @@ const waterPlant = (plopNumber) => {
         // in five seconds, grow into a flower!
         setTimeout(function() {
             growBig(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 1: 
         plantedSeed1.thirsty = false;
@@ -208,7 +277,7 @@ const waterPlant = (plopNumber) => {
             }
         setTimeout(function() {
             growBig(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 2: 
         plantedSeed2.thirsty = false;
@@ -218,7 +287,7 @@ const waterPlant = (plopNumber) => {
             }
         setTimeout(function() {
             growBig(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 3: 
         plantedSeed3.thirsty = false;
@@ -228,7 +297,7 @@ const waterPlant = (plopNumber) => {
             }
         setTimeout(function() {
             growBig(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000) 
+        },Math.floor(Math.random() * 5000) + 3000) 
         break;
         case 4: 
         plantedSeed4.thirsty = false;
@@ -238,25 +307,78 @@ const waterPlant = (plopNumber) => {
             }
         setTimeout(function() {
            growBig(plopNumber)
-        } ,Math.floor(Math.random() * 10000) + 3000) 
+        } ,Math.floor(Math.random() * 5000) + 3000) 
         break;
         default:
             console.log("🚰")
     }
 }
 
-//run the game
 
-const gameTick = () => {
-    ctx.clearRect(0, 0, game.width, game.height)
-    farmer.render();
-    renderPlops();
-    renderActivePlants(activePlants);
-    renderThirstyBoys(thirstyBoys);
+const harvestSparkle = (plopNumber) => {
+    switch(plopNumber) {
+        case 0: 
+        //remove from activeSparkles when harvested
+        const index0 = activeSparkles.indexOf(sparkle0);
+            if (index0 > -1) {
+            activeSparkles.splice(index0, 1);
+            }
+        // increase sparkle count
+        sparkleCount++;
+        // stop produce
+        grownFlower0.produce = false;
+        setTimeout(function() {
+            produceSparkle(plopNumber)
+        },Math.floor(Math.random() * 3000) + 1000)  
+        break;
+        case 1: 
+        const index1 = activeSparkles.indexOf(sparkle1);
+           if (index1 > -1) {
+           activeSparkles.splice(index1, 1);
+           }
+        sparkleCount++;
+        grownFlower1.produce = false;
+        setTimeout(function() {
+            produceSparkle(plopNumber)
+        },Math.floor(Math.random() * 3000) + 1000)  
+        break;
+        case 2: 
+        const index2 = activeSparkles.indexOf(sparkle2);
+            if (index2 > -1) {
+            activeSparkles.splice(index2, 1);
+        }
+        sparkleCount++;
+        grownFlower2.produce = false;
+        setTimeout(function() {
+            produceSparkle(plopNumber)
+        },Math.floor(Math.random() * 3000) + 1000)  
+        break;
+        case 3: 
+        const index3 = activeSparkles.indexOf(sparkle3);
+           if (index3 > -1) {
+           activeSparkles.splice(index3, 1);
+           }
+        sparkleCount++;
+        grownFlower3.produce = false;
+        setTimeout(function() {
+            produceSparkle(plopNumber)
+        },Math.floor(Math.random() * 3000) + 1000)  
+        break;
+        case 4: 
+        const index4 = activeSparkles.indexOf(sparkle4);
+           if (index4 > -1) {
+           activeSparkles.splice(index4, 1);
+           }
+        sparkleCount++;
+        grownFlower4.produce = false;
+        setTimeout(function() {
+            produceSparkle(plopNumber)
+        },Math.floor(Math.random() * 3000) + 1000)  
+        break;
+        default:
+            console.log("🦋")
+    }
 }
-
-//17 millisonds is slightly faster than 60 frames p/s
-let gameLoop = setInterval(gameTick, 60); 
 
 //move the farmer
 
@@ -281,7 +403,6 @@ const movementHandler = (e) => {
 
 document.addEventListener("keydown", movementHandler);
 
-// al of my time shenanigans
 
 const thirstQuench = (plopNumber) => {
     switch(plopNumber) {
@@ -317,12 +438,12 @@ const growBig = (plopNumber) => {
         const index0 = activePlants.indexOf(plantedSeed0);
             if (index0 > -1) {
             activePlants.splice(index0, 1);
-        } // add flower to active plants
+        } // add flower to active plants 
         activePlants.push(grownFlower0)
         // start flower timer for producing sparkles
         setTimeout(function() {
             produceSparkle(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000)  
+        },Math.floor(Math.random() * 3000) + 1000)  
         break;
         case 1:
         const index1 = activePlants.indexOf(plantedSeed1);
@@ -332,7 +453,7 @@ const growBig = (plopNumber) => {
         activePlants.push(grownFlower1)
         setTimeout(function() {
             produceSparkle(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000)   
+        },Math.floor(Math.random() * 3000) + 1000)   
         break;
         case 2:
         const index2 = activePlants.indexOf(plantedSeed2);
@@ -342,7 +463,7 @@ const growBig = (plopNumber) => {
         activePlants.push(grownFlower2)
         setTimeout(function() {
             produceSparkle(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000)
+        },Math.floor(Math.random() * 3000) + 1000)
         break;
         case 3:
         const index3 = activePlants.indexOf(plantedSeed3);
@@ -352,25 +473,62 @@ const growBig = (plopNumber) => {
         activePlants.push(grownFlower3)
         setTimeout(function() {
             produceSparkle(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000)     
+        },Math.floor(Math.random() * 3000) + 1000)     
         break;
         case 4:
-        const index4 = activePlants.indexOf(plantedSeed0);
+        const index4 = activePlants.indexOf(plantedSeed4);
             if (index4 > -1) {
             activePlants.splice(index4, 1);
         }
         activePlants.push(grownFlower4)
         setTimeout(function() {
             produceSparkle(plopNumber)
-        },Math.floor(Math.random() * 10000) + 3000)
+        },Math.floor(Math.random() * 3000) + 1000)
         break;
         default:
             console.log("🍄")
     }
 }
-const produceSparkle = () => {
-    setInterval(function(){ 
-        seedCount ++;
-        console.log(seedCount)
-    }, Math.floor(Math.random() * 10000) + 3000);
+
+const produceSparkle = (plopNumber) => {  
+    switch(plopNumber) {
+        case 0:
+           activeSparkles.push(sparkle0);
+           grownFlower0.produce = true;
+        break;
+        case 1:
+            activeSparkles.push(sparkle1);
+            grownFlower1.produce = true;
+        break;
+        case 2:
+            activeSparkles.push(sparkle2);
+            grownFlower2.produce = true;
+        break;
+        case 3:
+            activeSparkles.push(sparkle3);
+            grownFlower3.produce = true;
+        break;
+        case 4:
+            activeSparkles.push(sparkle4);
+            grownFlower4.produce = true;
+        break;
+        default:
+            console.log("✨")
+    }
 }
+
+// make clock go tick tick
+
+function tick () {
+    time -=1;
+    document.getElementById("timer").textContent = time;
+    if (time === 5) {
+        document.getElementById("timer").style.color = "red";
+    } else if (time === 10) {
+        document.getElementById("timer").style.color = "orange";
+    }
+    if (time <= 0) {
+      endGame();
+    }
+}
+

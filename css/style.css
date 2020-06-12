@@ -20,27 +20,52 @@ canvas {
     grid-template-rows: 20% 20% 20% 20% 20%;
     grid-column-gap: 1em; 
     height: 800px;
-    align-items: center;
+
 }
 
 #top {
-    grid-column: 2/4;
+    grid-column: 2/5;
     border: 1px solid black;
     text-align: center;
-    height: 60px;
-      
-}
-
-#play {
-    border: 1px solid black;
-    grid-column: 4/5;
-    text-align: center;
-    height: 60px;  
+    height: 80px;  
+    align-self: center;  
 }
 
 #rules {
     grid-row: 2/5;
     text-align: center;
-    padding: 50px;
+    padding: 40px;
+}
+
+#timer {
+    border: 1px solid black;
+    grid-column: 5/6;
+    grid-row: 2/3;
+    text-align: center;
+    height: 60px;  
+    width: 260px;
+    align-self: flex-end;
+    margin: 10px;
+}
+
+#sparkles {
+    border: 1px solid black;
+    grid-column: 5/6;
+    grid-row: 3/4;
+    height: 60px;  
+    width: 200px;
+    margin: 10px;
+    padding-left: 60px;
+}
+
+#play {
+    border: 1px solid black;
+    grid-column: 5/6;
+    grid-row: 3/4;
+    height: 60px;  
+    width: 260px;
+    margin: 10px;
+    text-align: center;
+    align-self: flex-end;
 }
 
