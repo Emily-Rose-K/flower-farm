@@ -9,7 +9,7 @@ var game = document.getElementById("game");
 
 let plopNumber = 0;
 let seedCount = 5;
-let time = 60;
+let time = 10;
 let sparkleCount = 0;
 let activeSparkles =[];
 let activePlants = [];
@@ -34,11 +34,9 @@ function Plant(x, y, color, width, height) { // these are all the things that ch
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
-  }
+}
 
 // all the things that are things in my thing
-
-let flower = new Plant(0, 0, "#c58ae3", 20, 50);
 
 let farmer = new Plant(10 ,80, "#1f1be3", 40, 60);
 
@@ -66,7 +64,6 @@ let grownFlower2 = new Plant(145, 115, "#912bff", 10, 25);
 let grownFlower3 = new Plant(205, 115, "#912bff", 10, 25);
 let grownFlower4 = new Plant(265, 115, "#912bff", 10, 25);
 
-
 let sparkle0 = new Plant(25, 90, "#ffe817", 10, 10);
 let sparkle1 = new Plant(85, 90, "#ffe817", 10, 10);
 let sparkle2 = new Plant(145, 90, "#ffe817", 10, 10);
@@ -77,33 +74,49 @@ let sparkle4 = new Plant(265, 90, "#ffe817", 10, 10);
 
 const renderPlops = () => {
     plop0.render();
+    plop0.init();
     plop1.render();
+    plop1.init();
     plop2.render();
+    plop2.init();
     plop3.render();
+    plop3.init();
     plop4.render();
+    plop4.init();
 }
 
 const renderActivePlants = (activePlants) => {
     // for each plant in activePlants array, render it
     // because i only want to render plants if they were planted
     activePlants.forEach(element => element.render());
+    activePlants.forEach(element => element.init());
 }
 
 const renderThirstyBoys = (thirstyBoys) => {
     thirstyBoys.forEach(element => element.render());
+    thirstyBoys.forEach(element => element.init());
 }
 
 const renderActiveSparkles = (activeSparkles) => {
     activeSparkles.forEach(element => element.render());
+    activeSparkles.forEach(element => element.init());
 }
 
 // game things 
 
+
 const endGame = () => {
     clearInterval(interval);
     clearInterval(gameLoop);
-    ctx.clearRect(0, 0, game.width, game.height)
-    
+    if (sparkleCount > 45) {
+        document.getElementById("message").innerText = "Great job tending the flowers 🌷 !  You got so many sparkles! ✨"
+        //update win count?
+    } else {
+        document.getElementById("message").innerText = "Aw too bad 👎🏼 ,  you didn't collect enough sparkles. ✨"
+        //update lose count?
+    }
+    document.getElementById("playAgain").style.display = "grid" ;
+    //play again?
 }
 
 const gameTick = () => {
@@ -124,8 +137,25 @@ const startGame = () =>{
 
 document.getElementById("play").addEventListener("click", function(){
     startGame();
-    document.getElementById("play").innerText = "Start Playing!"
+    document.getElementById("play").style.display = "none";
   });
+
+  document.getElementById("playAgain").addEventListener("click", function(){
+    ctx.clearRect(0, 0, game.width, game.height)
+    resetGame();
+    startGame();
+    document.getElementById("playAgain").style.display = "none";
+    document.getElementById("timer").style.color = "black";
+    document.getElementById("message").innerText = ""
+  });
+
+  const resetGame = () =>{
+    activePlants = [];
+    thirstyBoys = [];
+    activeSparkles =[];
+    time = 10;
+    sparkleCount = 0;
+  }
 
 
 //check if plop can receive seed
@@ -528,7 +558,7 @@ function tick () {
         document.getElementById("timer").style.color = "orange";
     }
     if (time <= 0) {
-      endGame();
+        endGame();
     }
 }
 
