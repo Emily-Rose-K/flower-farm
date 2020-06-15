@@ -19,8 +19,6 @@ var thirstTime;
 var growTime;
 var sparkleTime;
 
-
-
 /*---------- Game Logic ----------*/
 
 //draw the things
@@ -74,6 +72,36 @@ let sparkle2 = new Plant(145, 90, "#ffe817", 10, 10);
 let sparkle3 = new Plant(205, 90, "#ffe817", 10, 10);
 let sparkle4 = new Plant(265, 90, "#ffe817", 10, 10);
 
+
+
+//---------- RENDERING LOTS OF THINGS ----------//
+
+const renderPlops = () => {
+    plop0.render();
+    plop1.render();
+    plop2.render();
+    plop3.render();
+    plop4.render();
+}
+
+const renderActivePlants = (activePlants) => {
+    // for each plant in activePlants array, render it
+    // because i only want to render plants if they were planted
+    activePlants.forEach(element => element.render());
+}
+
+const renderThirstyBoys = (thirstyBoys) => {
+    thirstyBoys.forEach(element => element.render());
+}
+
+const renderActiveSparkles = (activeSparkles) => {
+    activeSparkles.forEach(element => element.render());
+}
+
+//---------- GAME STATE ----------//
+
+//reset all the plants to their mostly original state
+
 const resetPlants = () => {
     farmer.x = 10;
     farmer.y = 80;
@@ -98,34 +126,34 @@ const resetPlants = () => {
     grownFlower4.produce = false;
 }
 
-
-// render lots of things that are things in my things
-
-const renderPlops = () => {
-    plop0.render();
-    plop1.render();
-    plop2.render();
-    plop3.render();
-    plop4.render();
+// make clock go tick tick
+function tick () {
+    time -=1;
+    document.getElementById("timer").textContent = time;
+    if (time === 10) {
+        document.getElementById("timer").style.color = "red";
+    } else if (time === 30) {
+        document.getElementById("timer").style.color = "orange";
+    }
+    if (time <= 0) {
+        endGame();
+    }
 }
 
-const renderActivePlants = (activePlants) => {
-    // for each plant in activePlants array, render it
-    // because i only want to render plants if they were planted
-    activePlants.forEach(element => element.render());
+const gameTick = () => {
+    ctx.clearRect(0, 0, game.width, game.height)
+    farmer.render();
+    renderPlops();
+    renderActivePlants(activePlants);
+    renderThirstyBoys(thirstyBoys);
+    renderActiveSparkles(activeSparkles);
+    document.getElementById("sparkles").textContent = `✨:${sparkleCount}`;
 }
 
-const renderThirstyBoys = (thirstyBoys) => {
-    thirstyBoys.forEach(element => element.render());
+const startGame = () =>{
+    gameLoop = setInterval(gameTick, 17); 
+    interval = setInterval(tick, 1000);
 }
-
-const renderActiveSparkles = (activeSparkles) => {
-    activeSparkles.forEach(element => element.render());
-}
-
-// game things 
-
-
 const endGame = () => {
     clearInterval(interval);
     clearInterval(gameLoop);
@@ -144,22 +172,20 @@ const endGame = () => {
     resetPlants();
 }
 
-const gameTick = () => {
-    ctx.clearRect(0, 0, game.width, game.height)
-    farmer.render();
-    renderPlops();
-    renderActivePlants(activePlants);
-    renderThirstyBoys(thirstyBoys);
-    renderActiveSparkles(activeSparkles);
-    document.getElementById("sparkles").textContent = `✨:${sparkleCount}`;
-}
+const resetGame = () =>{
+    activePlants = [];
+    thirstyBoys = [];
+    activeSparkles =[];
+    time = 60;
+    sparkleCount = 0;
+    plopNumber = 0;
+    resetPlants();
+    clearTimeout(thirstTime);
+    clearTimeout(growTime);
+    clearTimeout(sparkleTime);
+  }
 
-//17 millisonds is slightly faster than 60 frames p/s
-const startGame = () =>{
-    gameLoop = setInterval(gameTick, 17); 
-    interval = setInterval(tick, 1000);
-}
-
+// more DOM references for clicking play na dplay again.
 document.getElementById("play").addEventListener("click", function(){
     startGame();
     document.getElementById("play").style.display = "none";
@@ -174,19 +200,8 @@ document.getElementById("play").addEventListener("click", function(){
     document.getElementById("message").innerText = ""
   });
 
-  const resetGame = () =>{
-    activePlants = [];
-    thirstyBoys = [];
-    activeSparkles =[];
-    time = 60;
-    sparkleCount = 0;
-    plopNumber = 0;
-    resetPlants();
-    clearTimeout(thirstTime);
-    clearTimeout(growTime);
-    clearTimeout(sparkleTime);
-  }
 
+//---------- CHECK THE STATE OF THE PLANTS ----------//
 
 //check if plop can receive seed
 
@@ -260,6 +275,8 @@ const checkSparkle = () => {
     }
 }
 
+//---------- FARMER ACTION HANDLER & FARMER MOVEMENT ----------//
+
 //tend the garden
 
  const doAction = () => {
@@ -274,41 +291,57 @@ const checkSparkle = () => {
     }
  }
 
+ const movementHandler = (e) => {
+    //go left
+    if (e.keyCode == '37') { 
+        if (farmer.x < 31) {
+        }else {
+            farmer.x -= 60;
+            plopNumber --;
+        } //go right
+    }else if (e.keyCode == '39') {
+        if (farmer.x > 240){ 
+        }else {
+            farmer.x += 60;
+            plopNumber ++; 
+        } //space bar to do action
+    }else if (e.keyCode == "32"){
+            doAction();
+    }
+}
+document.addEventListener("keydown", movementHandler);
+
+
  const plantSeed = (plopNumber) => {
     switch(plopNumber) {
         case 0: 
-        plop0.empty = false;
-        activePlants.push(plantedSeed0);
-        thirsty();
-        break;
+            plop0.empty = false;
+            activePlants.push(plantedSeed0);
+            thirsty();
+            break;
         case 1: 
-        plop1.empty = false;
-        activePlants.push(plantedSeed1);
-        thirsty();
+            plop1.empty = false;
+            activePlants.push(plantedSeed1);
+            thirsty();
         break;
         case 2: 
-        plop2.empty = false;
-        activePlants.push(plantedSeed2);
-        thirsty();
+            plop2.empty = false;
+            activePlants.push(plantedSeed2);
+            thirsty();
         break;
         case 3: 
-        plop3.empty = false;
-        activePlants.push(plantedSeed3);
-        thirsty();
+            plop3.empty = false;
+            activePlants.push(plantedSeed3);
+            thirsty();
         break;
-        case 4: plop4.empty = false;
-        activePlants.push(plantedSeed4);
-        thirsty();
-        break;
+            case 4: plop4.empty = false;
+            activePlants.push(plantedSeed4);
+            thirsty();
+            break;
         default:
         console.log("🌰")
     }
  }
-
- function thirsty () {
-   thirstTime = setTimeout(thirstQuench
- , Math.floor(Math.random() * 5000) + 3000, plopNumber);  
-}
 
 
 const waterPlant = (plopNumber) => {
@@ -360,218 +393,178 @@ const waterPlant = (plopNumber) => {
     }
 }
 
-//growBig timeout
-function growth () {
-    growTime = setTimeout(growBig
-  , Math.floor(Math.random() * 3000) + 1000, plopNumber);  
-  console.log(growTime)
-}
-
-
-
-
 const harvestSparkle = (plopNumber) => {
     switch(plopNumber) {
         case 0: 
-        //remove from activeSparkles when harvested
-        const index0 = activeSparkles.indexOf(sparkle0);
+            //remove from activeSparkles when harvested
+            const index0 = activeSparkles.indexOf(sparkle0);
             if (index0 > -1) {
-            activeSparkles.splice(index0, 1);
-        }
-        // increase sparkle count
-        sparkleCount++;
-        // stop produce
-        grownFlower0.produce = false;
-        harvest(0);
-        break;
+                activeSparkles.splice(index0, 1);
+            }
+            // increase sparkle count
+            sparkleCount++;
+            // stop produce
+            grownFlower0.produce = false;
+            harvest(0);
+            break;
         case 1: 
-        const index1 = activeSparkles.indexOf(sparkle1);
-           if (index1 > -1) {
-           activeSparkles.splice(index1, 1);
-        }
-        sparkleCount++;
-        grownFlower1.produce = false;
-        harvest(1);
-        break;
+            const index1 = activeSparkles.indexOf(sparkle1);
+            if (index1 > -1) {
+                activeSparkles.splice(index1, 1);
+            }
+            sparkleCount++;
+            grownFlower1.produce = false;
+            harvest(1);
+            break;
         case 2: 
-        const index2 = activeSparkles.indexOf(sparkle2);
+            const index2 = activeSparkles.indexOf(sparkle2);
             if (index2 > -1) {
-            activeSparkles.splice(index2, 1);
-        }
-        sparkleCount++;
-        grownFlower2.produce = false;
-        harvest(2);
-        break;
+                activeSparkles.splice(index2, 1);
+            }
+            sparkleCount++;
+            grownFlower2.produce = false;
+            harvest(2);
+            break;
         case 3: 
-        const index3 = activeSparkles.indexOf(sparkle3);
-           if (index3 > -1) {
-           activeSparkles.splice(index3, 1);
-        }
-        sparkleCount++;
-        grownFlower3.produce = false;
-        harvest(3);
-        break;
+            const index3 = activeSparkles.indexOf(sparkle3);
+            if (index3 > -1) {
+                activeSparkles.splice(index3, 1);
+            }
+            sparkleCount++;
+            grownFlower3.produce = false;
+            harvest(3);
+            break;
         case 4: 
-        const index4 = activeSparkles.indexOf(sparkle4);
-           if (index4 > -1) {
-           activeSparkles.splice(index4, 1);
-        }
-        sparkleCount++;
-        grownFlower4.produce = false;
-        harvest(4);
-        break;
+            const index4 = activeSparkles.indexOf(sparkle4);
+            if (index4 > -1) {
+                activeSparkles.splice(index4, 1);
+            }
+            sparkleCount++;
+            grownFlower4.produce = false;
+            harvest(4);
+            break;
         default:
             console.log("🦋")
     }
 }
 
-//move the farmer
+//----------TIMEOUTS ----------//
 
-const movementHandler = (e) => {
-    //go left
-    if (e.keyCode == '37') { 
-        if (farmer.x < 31) {
-        } else {
-            farmer.x -= 60;
-            plopNumber --;
-        } //go right
-    } else if (e.keyCode == '39') {
-        if (farmer.x > 240){ 
-        } else {
-            farmer.x += 60;
-            plopNumber ++; 
-        } //space bar to do action
-    } else if (e.keyCode == "32"){
-            doAction();
-    }
+//seed gets thirsty as soon as 3 - 5 seconds
+function thirsty () {
+    thirstTime = setTimeout(thirstQuench, Math.floor(Math.random() * 5000) + 3000, plopNumber);  
+ }
+
+ //seed grows into flower as soon as 1 - 3 seconds
+function growth () {
+    growTime = setTimeout(growBig, Math.floor(Math.random() * 3000) + 1000, plopNumber);  
 }
 
-document.addEventListener("keydown", movementHandler);
+// flower produces sparkle as soon as 3 - 5 seconds
+function harvest (currentnum) {
+    sparkleTime = setTimeout(produceSparkle, Math.floor(Math.random() * 5000) + 3000, currentnum); 
+}
 
 
 const thirstQuench = (plopNumber) => {
     switch(plopNumber) {
         case 0:
-           plantedSeed0.thirsty = true;
-           thirstyBoys.push(thirstPlant0);
-        break;
+            plantedSeed0.thirsty = true;
+            thirstyBoys.push(thirstPlant0);
+            break;
         case 1:
             plantedSeed1.thirsty = true;
             thirstyBoys.push(thirstPlant1);
-        break;
+            break;
         case 2:
             plantedSeed2.thirsty = true;
             thirstyBoys.push(thirstPlant2);
-        break;
+            break;
         case 3:
             plantedSeed3.thirsty = true;
             thirstyBoys.push(thirstPlant3);
-        break;
+            break;
         case 4:
             plantedSeed4.thirsty = true;
             thirstyBoys.push(thirstPlant4);
-        break;
+            break;
         default:
             console.log("🥵")
     }
 }
   
-
 const growBig = (plopNumber) => {
     switch(plopNumber) {
         case 0:
-        // remove planted seed from active plants
-        const index0 = activePlants.indexOf(plantedSeed0);
+            // remove planted seed from active plants
+            const index0 = activePlants.indexOf(plantedSeed0);
             if (index0 > -1) {
-            activePlants.splice(index0, 1);
-        } // add flower to active plants 
-        activePlants.push(grownFlower0);
-        // start flower timer for producing sparkles
-        harvest(0);
-        break;
+                activePlants.splice(index0, 1);
+            } // add flower to active plants 
+            activePlants.push(grownFlower0);
+            // start flower timer for producing sparkles
+            harvest(0);
+            break;
         case 1:
-        const index1 = activePlants.indexOf(plantedSeed1);
+            const index1 = activePlants.indexOf(plantedSeed1);
             if (index1 > -1) {
-            activePlants.splice(index1, 1);
-        }
-        activePlants.push(grownFlower1);
-        harvest(1);
-        break;
+                activePlants.splice(index1, 1);
+            }
+            activePlants.push(grownFlower1);
+            harvest(1);
+            break;
         case 2:
-        const index2 = activePlants.indexOf(plantedSeed2);
+            const index2 = activePlants.indexOf(plantedSeed2);
             if (index2 > -1) {
-            activePlants.splice(index2, 1);
-        }
-        activePlants.push(grownFlower2);
-        harvest(2);
-        break;
+                activePlants.splice(index2, 1);
+            }
+            activePlants.push(grownFlower2);
+            harvest(2);
+            break;
         case 3:
-        const index3 = activePlants.indexOf(plantedSeed3);
+            const index3 = activePlants.indexOf(plantedSeed3);
             if (index3 > -1) {
-            activePlants.splice(index3, 1);
-        }
-        activePlants.push(grownFlower3);
-        harvest(3);
-        break;
+                activePlants.splice(index3, 1);
+            }
+            activePlants.push(grownFlower3);
+            harvest(3);
+            break;
         case 4:
-        const index4 = activePlants.indexOf(plantedSeed4);
+            const index4 = activePlants.indexOf(plantedSeed4);
             if (index4 > -1) {
-            activePlants.splice(index4, 1);
-        }
-        activePlants.push(grownFlower4);
-        harvest(4);
-        break;
+                activePlants.splice(index4, 1);
+            }
+            activePlants.push(grownFlower4);
+            harvest(4);
+            break;
         default:
         console.log("🍄")
     }
 }
-
-// timout function to produce sparkles
-
 
 const produceSparkle = (plopNumber) => {  
     switch(plopNumber) {
         case 0:
            activeSparkles.push(sparkle0);
            grownFlower0.produce = true;
-        break;
+            break;
         case 1:
             activeSparkles.push(sparkle1);
             grownFlower1.produce = true;
-        break;
+            break;
         case 2:
             activeSparkles.push(sparkle2);
             grownFlower2.produce = true;
-        break;
+            break;
         case 3:
             activeSparkles.push(sparkle3);
             grownFlower3.produce = true;
-        break;
+            break;
         case 4:
             activeSparkles.push(sparkle4);
             grownFlower4.produce = true;
-        break;
+            break;
         default:
             console.log("✨")
-    }
-}
-
-function harvest (currentnum) {
-    sparkleTime = setTimeout(produceSparkle
-  , Math.floor(Math.random() * 5000) + 1000, currentnum); 
-}
-
-// make clock go tick tick
-
-function tick () {
-    time -=1;
-    document.getElementById("timer").textContent = time;
-    if (time === 5) {
-        document.getElementById("timer").style.color = "red";
-    } else if (time === 10) {
-        document.getElementById("timer").style.color = "orange";
-    }
-    if (time <= 0) {
-        endGame();
     }
 }
