@@ -153,6 +153,8 @@ const gameTick = () => {
 const startGame = () =>{
     gameLoop = setInterval(gameTick, 17); 
     interval = setInterval(tick, 1000);
+    myMusic = new sound("Blue_Dot_Sessions_-_Pinky.mp3");
+    myMusic.play();
 }
 const endGame = () => {
     clearInterval(interval);
@@ -160,7 +162,7 @@ const endGame = () => {
     clearTimeout(thirstTime);
     clearTimeout(growTime);
     clearTimeout(sparkleTime);
-    if (sparkleCount > 45) {
+    if (sparkleCount > 35) {
         document.getElementById("message").innerText = "Great job tending the flowers 🌷 !  You got so many sparkles! ✨"
         //update win count?
     } else {
