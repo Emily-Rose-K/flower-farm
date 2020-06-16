@@ -3,7 +3,7 @@ Let's grow, grow, grow! You've built a backyard garden with five plots of dirt t
 
 ## About
 ### goal state
-The goal of this game is to grow your flowers and produce sparkles. Flowers need to be watered in order to grow and will only produce sparkles once fully grown. Players only have 3 minutes to grow as many flowers as they can to produce as many sparkles as they can. To start, players are given five seeds to plant in five plops of dirt. They will need to plant their seeds and water their flowers when they are thirsty to get them to grow . Once fully grown, flowers will start to produce a currency of sparkles. 
+The goal of this game is to grow your flowers and produce sparkles. Flowers need to be watered in order to grow and will only produce sparkles once fully grown. Players only have one minute to grow as many flowers as they can to produce as many sparkles as they can. To start, players are given five seeds to plant in five plops of dirt. They will need to plant their seeds and water their flowers when they are thirsty to get them to grow . Once fully grown, flowers will start to produce a currency of sparkles that the farmer can collect. 
 
 <!-- A player will "lose" the game if they run out of seeds/flowers. This is possible to do only if the player really wants to lose (ie., they choose to cut all their flowers and not to purchase new seeds in the shop.)  -->
 
@@ -49,13 +49,12 @@ i am able to track plops of dirt by incrementing or decrementing by one when the
 solve: all my action functions take a plopNumber as the case so that I know where I am at for each action.
 
 ### geting sparkles to appear above a flower.
-full grown flowers do produce sparkles but only one flower will do it per game. and, it will produce multiple sparkles even though i did not intend for that to happen (yet.) i need to figure out why each flower is not producing a sparkle after the timeout ends.
+full grown flowers do produce sparkles but only one flower will do it per game. and, it will produce multiple sparkles even though i did not intend for that to happen (yet.) i need to figure out why each flower is not producing a sparkle after the timeout ends. 
+Solve: problem with passing the plop number to the function that handles sparkle production
 
-## Gameplay
+### clearing timeouts
+to restart the game I needed to clear timeouts which I couldn't do immediately until i named the timeout functions. i originally wrote them as unnamed functions inside of my switch statements. once removed from that logic and syntactilly correct, i had trouble getting the switch statements to call the named timeouts. i also had an issue where only three flowers would produce, and once harvested, the sparkle would not be removed from the page. i had to hard code the plopNumber instead of actually passing it in. there was a delay in the plopNumber being received and the functions were being executed on the wrong plops. 
 
-### start screen
-### the garden
-### shop
 
 ## Planning & Game Design
 
@@ -115,7 +114,9 @@ and how does that make you feel?
   - hard to lose
   - soft music
 - surprising (super stretch)
-  - dude wouldn't it be cool if you had like 1/100 chance to get a off color flower? totally gonna add this if I finish all my stretch goals
+  - dude wouldn't it be cool if you had like 1/100 chance to get a off color flower? totally gonna add this if i finish all my stretch goals
 
 ## Final Thoughts
+
+i did not do as much as i would have liked. full disclosure, i did not work over the weekend. but overall, i think the logic of the game is really cool. i wish i had started with images instead of boxes, it would have looked nicer in the end (and converting boxes to images is harder than it sounded.) if i did use my extra time, or had more time, i would have liked to add the shop and a second level. i also would have figured out a better way to organize and architect my code so that i could avoid so many gosh darn switch statements. 
 
