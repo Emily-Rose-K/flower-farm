@@ -112,7 +112,6 @@ const resetPlants = () => {
     plop3.empty = true;
     plop4.empty = true;
 
-
     plantedSeed0.thirsty = false;
     plantedSeed1.thirsty = false;
     plantedSeed2.thirsty = false;
@@ -134,6 +133,8 @@ function tick () {
         document.getElementById("timer").style.color = "red";
     } else if (time === 30) {
         document.getElementById("timer").style.color = "orange";
+    } else if (time > 30) {
+        document.getElementById("timer").style.color = "green";
     }
     if (time <= 0) {
         endGame();
@@ -189,17 +190,17 @@ const resetGame = () =>{
 
 // more DOM references for clicking play na dplay again.
 document.getElementById("play").addEventListener("click", function(){
-    startGame();
     document.getElementById("play").style.display = "none";
+    startGame();
   });
 
   document.getElementById("playAgain").addEventListener("click", function(){
     ctx.clearRect(0, 0, game.width, game.height)
-    resetGame();
-    startGame();
     document.getElementById("playAgain").style.display = "none";
     document.getElementById("timer").style.color = "black";
     document.getElementById("message").innerText = ""
+    resetGame();
+    startGame();
   });
 
 
