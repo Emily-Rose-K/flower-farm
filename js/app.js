@@ -160,7 +160,7 @@ const endGame = () => {
     clearTimeout(thirstTime);
     clearTimeout(growTime);
     clearTimeout(sparkleTime);
-    if (sparkleCount > 45) {
+    if (sparkleCount > 35) {
         document.getElementById("message").innerText = "Great job tending the flowers 🌷 !  You got so many sparkles! ✨"
         //update win count?
     } else {
